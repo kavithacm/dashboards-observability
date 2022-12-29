@@ -229,7 +229,8 @@ export const renderSavedVisualization = async (
   setVisualizationData: React.Dispatch<React.SetStateAction<Plotly.Data[]>>,
   setVisualizationMetaData: React.Dispatch<React.SetStateAction<undefined>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setIsError: React.Dispatch<React.SetStateAction<VizContainerError>>
+  setIsError: React.Dispatch<React.SetStateAction<VizContainerError>>,
+  queryAggregation?: string
 ) => {
   setIsLoading(true);
   setIsError({} as VizContainerError);
@@ -260,6 +261,20 @@ export const renderSavedVisualization = async (
     );
   } else {
     updatedVisualizationQuery = visualization.query;
+  }
+
+  if (updatedVisualizationQuery.includes('stats') && queryAggregation) {
+    if (queryAggregation === 'count()') {
+      updatedVisualizationQuery = updatedVisualizationQuery.replace(
+        /stats .*\((.*)\)\W/,
+        `stats count() `
+      );
+    } else {
+      updatedVisualizationQuery = updatedVisualizationQuery.replace(
+        /stats .*\((.*)\)\W/,
+        `stats ${queryAggregation.slice(0, -1)}$1)`
+      );
+    }
   }
 
   setVisualizationMetaData({ ...visualization, query: updatedVisualizationQuery });
@@ -320,14 +335,28 @@ export const renderCatalogVisualization = async (
   setVisualizationMetaData: React.Dispatch<React.SetStateAction<undefined>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setIsError: React.Dispatch<React.SetStateAction<VizContainerError>>,
-  spanResolution?: string
+  spanResolution?: string,
+  queryAggregation?: any
 ) => {
   setIsLoading(true);
   setIsError({} as VizContainerError);
 
   const visualizationType = 'line';
   const visualizationTimeField = '@timestamp';
-  let visualizationQuery = `source = ${catalogSource} | stats avg(@value) by span(${visualizationTimeField},1h)`;
+
+  let visualizationQuery;
+  if (queryAggregation) {
+    if (queryAggregation === 'count()') {
+      visualizationQuery = `source = ${catalogSource} | stats count() by span(${visualizationTimeField},1h)`;
+    } else {
+      visualizationQuery = `source = ${catalogSource} | stats ${queryAggregation.slice(
+        0,
+        -1
+      )}@value) by span(${visualizationTimeField},1h)`;
+    }
+  } else {
+    visualizationQuery = `source = ${catalogSource} | stats avg(@value) by span(${visualizationTimeField},1h)`;
+  }
 
   if (spanParam !== undefined) {
     visualizationQuery = updateQuerySpanInterval(
