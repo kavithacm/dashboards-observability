@@ -217,6 +217,7 @@ export const ConfigPanel = ({ visualizations, setCurVisId, callback }: any) => {
           fullWidth
           renderOption={vizSelectableItemRenderer}
           isClearable={false}
+          data-test-subj="eventExplorer__vizTypeComboBox"
         />
       </div>
       <div className="cp__rightSettings">

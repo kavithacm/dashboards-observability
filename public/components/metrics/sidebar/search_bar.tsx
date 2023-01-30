@@ -36,6 +36,7 @@ export const SearchBar = (props: ISearchBarProps) => {
         }}
         defaultQuery={''}
         onChange={onChange}
+        data-test-subj="metricsSearch"
       />
     </div>
   );

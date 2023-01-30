@@ -126,7 +126,7 @@ export const TopMenu = ({
   );
 
   const saveButton = (
-    <EuiButton size="s" iconType="save" onClick={() => editPanel('save')}>
+    <EuiButton size="s" iconType="save" onClick={() => editPanel('save')} data-test-subj="metrics__saveView">
       Save view
     </EuiButton>
   );

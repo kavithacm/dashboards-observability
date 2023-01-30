@@ -123,6 +123,7 @@ export const SavePanel = ({
                 onChange={onToggleChange}
                 compressed
                 disabled={!isSaveAsMetricEnabled}
+                data-test-subj="eventExplorer__metricSaveName"
               />
             </EuiToolTip>
           </EuiFormRow>
