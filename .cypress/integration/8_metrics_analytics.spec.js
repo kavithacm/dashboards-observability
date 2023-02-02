@@ -19,6 +19,7 @@ import {
     delay,
     PPL_METRICS,
     PPL_METRICS_NAMES,
+    VIS_TYPE_LINE
 } from '../utils/metrics_constants';
 
 import { supressResizeObserverIssue } from '../utils/constants';
@@ -64,9 +65,11 @@ describe('Creating custom metrics', () => {
     supressResizeObserverIssue();
     cy.get('button[id="main-content-vis"]').contains('Visualizations').trigger('mouseover').click();
     cy.wait(delay * 2);
-    cy.get('[data-test-subj="eventExplorer__vizTypeComboBox"]').trigger('mouseover').click();
+    // cy.get('[data-test-subj="eventExplorer__vizTypeComboBox"]').trigger('mouseover').click();
+    cy.get('[data-test-subj="comboBoxInput"]').click();
+    cy.get('[data-test-subj="comboBoxOptionsList "] span').contains(VIS_TYPE_LINE).click();
     // cy.get('[data-test-subj="comboBoxInput"]').eq(2).click();
-    cy.get('.euiComboBoxOption__content').contains('Time series').click();
+    // cy.get('.euiComboBoxOption__content').contains('Time series').click();
     cy.get('[data-test-subj="eventExplorer__saveManagementPopover"]').trigger('mouseover').click();
     cy.wait(1000);
     cy.get('[data-test-subj="eventExplorer__querySaveName"]')

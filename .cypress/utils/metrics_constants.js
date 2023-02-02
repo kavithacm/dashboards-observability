@@ -18,3 +18,5 @@ export const PPL_METRICS = [
   'source = prometheus.process_virtual_memory_bytes | stats avg(@value) by span(@timestamp,1h)',
   'source = prometheus.process_cpu_seconds_total | stats avg(@value) by span(@timestamp,1h)',
 ];
+
+export const VIS_TYPE_LINE = 'Time Series';
