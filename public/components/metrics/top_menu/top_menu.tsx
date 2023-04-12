@@ -18,6 +18,9 @@ import {
   EuiButtonEmpty,
   EuiPopover,
   EuiPopoverFooter,
+  EuiButtonIcon,
+  EuiContextMenuPanel,
+  EuiContextMenuItem,
 } from '@elastic/eui';
 import { DurationRange } from '@elastic/eui/src/components/date_picker/types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -94,6 +97,9 @@ export const TopMenu = ({
   const [selectedPanelOptions, setSelectedPanelOptions] = useState<
     EuiComboBoxOptionOption<unknown>[] | undefined
   >([]);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const onActionsMenuClick = () => setIsPopoverOpen((currPopoverOpen) => !currPopoverOpen);
+  const closeActionsMenu = () => setIsPopoverOpen(false);
 
   // toggle between panel edit mode
   const editPanel = (editType: string) => {
@@ -155,6 +161,48 @@ export const TopMenu = ({
       Save
     </EuiButton>
   );
+
+  const Actionsbutton = (
+    <EuiButton
+      iconSide="right"
+      onClick={() => {
+        setIsSavePanelOpen((staleState) => !staleState);
+      }}
+      data-test-subj="metrics__actionsManagementPopover"
+      iconType="arrowDown"
+      isDisabled={IsTopPanelDisabled}
+    >
+      Actions
+    </EuiButton>
+  );
+
+  const popoverPanel = [
+    <EuiContextMenuItem data-test-subj="" key="edit_metric">
+      Save Metric
+    </EuiContextMenuItem>,
+    <EuiContextMenuItem data-test-subj="" key="metrics__openInTraceAnalytics">
+      Remove selected metrics
+    </EuiContextMenuItem>,
+    <EuiContextMenuItem data-test-subj="" key="metrics__openInVisualization">
+      Reset all metrics to default
+    </EuiContextMenuItem>,
+    <EuiContextMenuItem
+      data-test-subj="showCatalogPPLQuery"
+      key="see_more"
+      disabled={editMode}
+      // onClick={() => {
+      //   // <EuiPopover
+      //   //   button={Actionsbutton}
+      //   //   isOpen={isSavePanelOpen}
+      //   //   closePopover={() => setIsSavePanelOpen(false)}
+      //   // >
+      //   //   {/* <EuiContextMenuPanel items={popoverPanel} /> */}
+      //   // </EuiPopover>
+      // }}
+    >
+      See More
+    </EuiContextMenuItem>,
+  ];
 
   const handleSavingObjects = async () => {
     let savedMetricIds = [];
@@ -256,11 +304,12 @@ export const TopMenu = ({
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiPopover
-                button={Savebutton}
+                button={Actionsbutton}
                 isOpen={isSavePanelOpen}
                 closePopover={() => setIsSavePanelOpen(false)}
               >
-                <MetricsExportPanel
+                <EuiContextMenuPanel items={popoverPanel} />
+                {/* <MetricsExportPanel
                   http={http}
                   visualizationsMetaData={visualizationsMetaData}
                   setVisualizationsMetaData={setVisualizationsMetaData}
@@ -279,8 +328,22 @@ export const TopMenu = ({
                         Cancel
                       </EuiButtonEmpty>
                     </EuiFlexItem>
-                    <EuiFlexItem grow={false}>
-                      <EuiButton
+                    <EuiFlexItem grow={false}> */}
+                {/* <EuiPopover
+                       button={
+                    <EuiButtonIcon
+                      aria-label="actionMenuButton"
+                      iconType="boxesHorizontal"
+                      onClick={onActionsMenuClick}
+                    />
+                  }
+                  isOpen={isPopoverOpen}
+                  closePopover={closeActionsMenu}
+                  anchorPosition="downLeft"
+                >
+                    <EuiContextMenuPanel items={popoverPanel} />
+                  </EuiPopover> */}
+                {/* <EuiButton
                         size="s"
                         fill
                         onClick={() => {
@@ -292,7 +355,7 @@ export const TopMenu = ({
                       </EuiButton>
                     </EuiFlexItem>
                   </EuiFlexGroup>
-                </EuiPopoverFooter>
+                </EuiPopoverFooter> */}
               </EuiPopover>
             </EuiFlexItem>
           </EuiFlexGroup>

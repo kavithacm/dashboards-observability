@@ -107,6 +107,7 @@ export const VisualizationContainer = ({
   metricsPanel,
 }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [disablePopover, setDisablePopover] = useState(false);
   const [visualizationTitle, setVisualizationTitle] = useState('');
   const [visualizationType, setVisualizationType] = useState('');
   const [visualizationMetaData, setVisualizationMetaData] = useState();
@@ -214,6 +215,15 @@ export const VisualizationContainer = ({
   ];
 
   const showModelPanel = [
+    <EuiContextMenuItem data-test-subj="" key="edit_metric">
+      Edit Metric Visualization
+    </EuiContextMenuItem>,
+    <EuiContextMenuItem data-test-subj="" key="metrics__openInTraceAnalytics">
+      Open in Trace Analytics
+    </EuiContextMenuItem>,
+    <EuiContextMenuItem data-test-subj="" key="metrics__openInVisualization">
+      Open in Visualization
+    </EuiContextMenuItem>,
     <EuiContextMenuItem
       data-test-subj="showCatalogPPLQuery"
       key="view_query"
