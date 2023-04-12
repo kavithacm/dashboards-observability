@@ -130,14 +130,6 @@ export class ObservabilityPlugin implements Plugin<ObservabilitySetup, Observabi
       mount: appMountWithStartPage('/notebooks'),
     });
 
-    core.application.register({
-      id: observabilityID,
-      title: observabilityTitle,
-      category: DEFAULT_APP_CATEGORIES.plugins,
-      order: observabilityPluginOrder,
-      mount: appMountWithStartPage(),
-    });
-
     // Return methods that should be available to other plugins
     return {};
   }

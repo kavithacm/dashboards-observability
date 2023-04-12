@@ -31,7 +31,7 @@ export const EventAnalytics = ({
 
   const eventAnalyticsBreadcrumb = {
     text: 'Event analytics',
-    href: '#/event_analytics',
+    href: '#/',
   };
 
   const setToast = (title: string, color = 'success', text?: ReactChild, side?: string) => {
@@ -63,14 +63,14 @@ export const EventAnalytics = ({
       <HashRouter>
         <Switch>
           <Route
-            path={[`/event_analytics/explorer/:id`, `/event_analytics/explorer`]}
+            path={[`/explorer/:id`, `/explorer`]}
             render={(prop) => {
               chrome.setBreadcrumbs([
                 ...parentBreadcrumbs,
                 eventAnalyticsBreadcrumb,
                 {
                   text: 'Explorer',
-                  href: `#/event_analytics/explorer`,
+                  href: `#/explorer`,
                 },
               ]);
               return (
@@ -92,14 +92,14 @@ export const EventAnalytics = ({
           />
           <Route
             exact
-            path={['/', '/event_analytics']}
+            path={['/']}
             render={() => {
               chrome.setBreadcrumbs([
                 ...parentBreadcrumbs,
                 eventAnalyticsBreadcrumb,
                 {
                   text: 'Home',
-                  href: '#/event_analytics',
+                  href: '#/',
                 },
               ]);
               return (

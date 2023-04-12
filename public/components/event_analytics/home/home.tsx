@@ -197,7 +197,7 @@ const EventAnalyticsHome = (props: IHomeProps) => {
     await dispatchInitialData(newTabId);
 
     // redirect to explorer
-    history.push('/event_analytics/explorer');
+    history.push('/explorer');
   };
 
   const handleQueryChange = async (query: string) => setSearchQuery(query);
@@ -223,7 +223,7 @@ const EventAnalyticsHome = (props: IHomeProps) => {
       dispatch(setSelectedQueryTab({ tabId: newTabId }));
     });
     // redirect to explorer
-    history.push(`/event_analytics/explorer/${objectId}`);
+    history.push(`/explorer/${objectId}`);
   };
 
   const addSampledata = async () => {
@@ -332,7 +332,7 @@ const EventAnalyticsHome = (props: IHomeProps) => {
       key="redirect"
       onClick={() => {
         setIsActionsPopoverOpen(false);
-        history.push(`/event_analytics/explorer`);
+        history.push(`/explorer`);
       }}
       data-test-subj="eventHomeAction__explorer"
     >
@@ -449,7 +449,7 @@ const EventAnalyticsHome = (props: IHomeProps) => {
                       <EuiFlexItem grow={false}>
                         <EuiButton
                           fullWidth={false}
-                          onClick={() => history.push(`/event_analytics/explorer`)}
+                          onClick={() => history.push(`/explorer`)}
                           data-test-subj="actionEventExplorer"
                         >
                           Event Explorer

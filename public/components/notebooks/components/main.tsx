@@ -328,7 +328,7 @@ export class Main extends React.Component<MainProps, MainState> {
             />
             <Route
               exact
-              path="/notebooks/:id"
+              path="/:id"
               render={(props) => (
                 <Notebook
                   pplService={this.props.pplService}
