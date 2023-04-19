@@ -470,7 +470,13 @@ export const CustomPanelViewSO = (props: CustomPanelViewProps) => {
 
   const setPanelVisualizations = (newVis) => {
     const newPanel: CustomPanelType = { ...panel, visualizations: newVis };
+    try {
     dispatch(setPanel(newPanel));
+    setToast(`Visualization is successfully added!`, 'success');
+    } catch (err) {
+      setToast('Error adding visualization to this panel', 'danger');
+      console.error(err?.body?.message || err);
+    }
   };
 
   let flyout;
